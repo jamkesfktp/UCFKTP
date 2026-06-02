@@ -250,4 +250,12 @@ h1, h2, h3, h4 {
   h1 {
     font-size: 1.4rem !important;
   }
+  
+  /* Disable sticky columns on mobile so they don't cover the screen */
+  .data-table .sticky-col, .data-table th.sticky-col {
+    position: static !important;
+    min-width: auto !important;
+    box-shadow: none !important;
+    z-index: 1 !important;
+  }
 }
