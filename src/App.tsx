@@ -106,7 +106,7 @@ export default function App() {
 
     if (errors.length > 0) {
       setValidationErrors(errors);
-      alert("Harap lengkapi semua isian yang bergaris merah. Angka minimal 0.");
+      
       return false;
     }
     return true;
@@ -467,18 +467,18 @@ export default function App() {
                         <td style={{ backgroundColor: '#eff6ff', borderLeft: '2px solid #bfdbfe', borderRight: '2px solid #bfdbfe' }}>
                           <input type="number" className="form-input" style={{...inputStyle, backgroundColor: '#ffffff', fontWeight: 'bold', borderColor: pegawai.totalJam && !isValid ? 'red' : 'var(--border)'}} value={pegawai.totalJam} onChange={e => updatePegawai('totalJam', e.target.value)} />
                         </td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.umum || ''} onChange={e => updatePegawai('umum', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.lansia || ''} onChange={e => updatePegawai('lansia', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.kia || ''} onChange={e => updatePegawai('kia', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.gigi || ''} onChange={e => updatePegawai('gigi', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.psiko || ''} onChange={e => updatePegawai('psiko', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.gizi || ''} onChange={e => updatePegawai('gizi', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.igd || ''} onChange={e => updatePegawai('igd', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.kb || ''} onChange={e => updatePegawai('kb', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.persalin || ''} onChange={e => updatePegawai('persalin', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.ukm || ''} onChange={e => updatePegawai('ukm', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.lain || ''} onChange={e => updatePegawai('lain', e.target.value)} /></td>
-                        <td><input type="number" className="form-input" style={inputStyle} value={pegawai.farmasi || ''} onChange={e => updatePegawai('farmasi', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_umum`) ? 'red' : 'var(--border)'}} value={pegawai.umum ?? ''} onChange={e => updatePegawai('umum', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_lansia`) ? 'red' : 'var(--border)'}} value={pegawai.lansia ?? ''} onChange={e => updatePegawai('lansia', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_kia`) ? 'red' : 'var(--border)'}} value={pegawai.kia ?? ''} onChange={e => updatePegawai('kia', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_gigi`) ? 'red' : 'var(--border)'}} value={pegawai.gigi ?? ''} onChange={e => updatePegawai('gigi', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_psiko`) ? 'red' : 'var(--border)'}} value={pegawai.psiko ?? ''} onChange={e => updatePegawai('psiko', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_gizi`) ? 'red' : 'var(--border)'}} value={pegawai.gizi ?? ''} onChange={e => updatePegawai('gizi', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_igd`) ? 'red' : 'var(--border)'}} value={pegawai.igd ?? ''} onChange={e => updatePegawai('igd', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_kb`) ? 'red' : 'var(--border)'}} value={pegawai.kb ?? ''} onChange={e => updatePegawai('kb', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_persalin`) ? 'red' : 'var(--border)'}} value={pegawai.persalin ?? ''} onChange={e => updatePegawai('persalin', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_ukm`) ? 'red' : 'var(--border)'}} value={pegawai.ukm ?? ''} onChange={e => updatePegawai('ukm', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_lain`) ? 'red' : 'var(--border)'}} value={pegawai.lain ?? ''} onChange={e => updatePegawai('lain', e.target.value)} /></td>
+                        <td><input type="number" className="form-input" style={{...inputStyle, borderColor: validationErrors.includes(`sdm_${index}_farmasi`) ? 'red' : 'var(--border)'}} value={pegawai.farmasi ?? ''} onChange={e => updatePegawai('farmasi', e.target.value)} /></td>
                         <td style={{ minWidth: '150px' }}>
                           {pegawai.totalJam ? (isValid ? <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>✓ OK</span> : 
                             <div style={{ color: 'var(--error)', fontWeight: 'bold', fontSize: '0.85rem' }}>
