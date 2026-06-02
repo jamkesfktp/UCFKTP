@@ -158,9 +158,7 @@ export function calculateCosting(identitas: any, sdm: any[], _kualitatif: any) {
   const totalBiaya = biayaSdm / rateSdm;
   
   // Non JKN Calculation
-  const totalBiayaNonJkn = biayaSdmNonJkn / rateSdm;
-
-  // Rawat Inap Calculation (Estimasi kasar berbasis proporsi bed/pasien)
+  // We compute totalBiayaNonJknAccumulated separately below
   // In a real scenario, this would use a specific coefficient from the Excel model
   const totalBiayaRawatInap = (jenisFaskes || '').toLowerCase().includes('rawat inap') ? (totalBiaya * 0.15) : 0; // 15% placeholder for RI
 
