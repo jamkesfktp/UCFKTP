@@ -555,7 +555,7 @@ export default function App() {
               </table>
             </div>
             
-            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+            <div className="flex-actions" style={{ marginTop: '2rem', justifyContent: 'flex-end' }}>
               <button className="btn btn-secondary" onClick={() => setStep(3)}><ArrowLeft size={18} /> Kembali Edit Data</button>
               <button className="btn btn-secondary" style={{ backgroundColor: '#10b981', color: 'white', borderColor: '#10b981' }} onClick={handleSaveDraft}><Save size={18} /> Simpan ke Dasbor (Offline)</button>
               <button className="btn btn-primary"><Download size={18} /> Ekspor Laporan PDF</button>
@@ -565,7 +565,7 @@ export default function App() {
 
         {/* Footer Navigation */}
         {step < 4 && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '3rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
+          <div className="flex-header" style={{ marginTop: '3rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
             {step > 0 ? (
               <button className="btn btn-secondary" onClick={prevStep}><ArrowLeft size={18} /> Kembali</button>
             ) : <div/>}
