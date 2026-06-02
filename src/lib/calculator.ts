@@ -172,10 +172,36 @@ export function calculateCosting(identitas: any, sdm: any[], _kualitatif: any) {
   // Unit Cost Calculations (UC = Biaya / Kunjungan)
   const kunjunganRawatInap = (Number(identitas.jkn_ri) || 0) + (Number(identitas.nonjkn_ri) || 0);
 
-  const ucKapitasi = kunjunganJkn > 0 ? totalBiaya / kunjunganJkn : 0;
-  const ucNonKapitasi = kunjunganNonJkn > 0 ? totalBiayaNonJkn / kunjunganNonJkn : 0;
+  // Kunjungan Kapitasi = ri + umum + lansia + gigi + psiko + gizi + igd
+  const kunjunganKapitasiJkn = 
+    (Number(identitas.jkn_ri) || 0) + (Number(identitas.jkn_umum) || 0) + (Number(identitas.jkn_lansia) || 0) + 
+    (Number(identitas.jkn_gigi) || 0) + (Number(identitas.jkn_psiko) || 0) + (Number(identitas.jkn_gizi) || 0) + 
+    (Number(identitas.jkn_igd) || 0);
+
+  const kunjunganKapitasiNonJkn = 
+    (Number(identitas.nonjkn_ri) || 0) + (Number(identitas.nonjkn_umum) || 0) + (Number(identitas.nonjkn_lansia) || 0) + 
+    (Number(identitas.nonjkn_gigi) || 0) + (Number(identitas.nonjkn_psiko) || 0) + (Number(identitas.nonjkn_gizi) || 0) + 
+    (Number(identitas.nonjkn_igd) || 0);
+
+  // Kapitasi Dasar
+  let kapitasiDasar = totalBiaya / 12 / (pesertaJkn || 1);
+  let totalBiayaJkn = totalBiaya;
+
+  if (String(jenisFaskes).toLowerCase().includes('puskesmas')) {
+    kapitasiDasar = (totalBiaya * 0.62) / 12 / (pesertaJkn || 1);
+    totalBiayaJkn = totalBiaya * 0.62;
+  }
+
+  // UC Kapitasi
+  const ucKapitasi = kunjunganKapitasiJkn > 0 ? totalBiayaJkn / kunjunganKapitasiJkn : 0;
+  
+  // UC Non Kapitasi
+  // Non JKN uses the dynamically accumulated biayaSdmNonJkn divided by rateSdm
+  const totalBiayaNonJknAccumulated = biayaSdmNonJkn / rateSdm;
+  const ucNonKapitasi = kunjunganKapitasiNonJkn > 0 ? totalBiayaNonJknAccumulated / kunjunganKapitasiNonJkn : 0;
+
   const ucRawatInap = kunjunganRawatInap > 0 ? totalBiayaRawatInap / kunjunganRawatInap : 0;
-  const ucTotal = totalKunjungan > 0 ? (totalBiaya + totalBiayaNonJkn + totalBiayaRawatInap) / totalKunjungan : 0;
+  const ucTotal = totalKunjungan > 0 ? (totalBiaya + totalBiayaNonJknAccumulated + totalBiayaRawatInap) / totalKunjungan : 0;
 
   // Real-time calculation result
   return {
@@ -185,9 +211,9 @@ export function calculateCosting(identitas: any, sdm: any[], _kualitatif: any) {
     biayaAlkes,
     biayaNonMedis,
     biayaOverhead,
-    biayaPerkapita: totalBiaya / (pesertaJkn || 1) / 12, // Monthly per capita
+    biayaPerkapita: kapitasiDasar, // Renamed functionally to match Kapitasi Dasar
     helperId, // For debugging/display
-    totalBiayaNonJkn,
+    totalBiayaNonJkn: totalBiayaNonJknAccumulated,
     totalBiayaRawatInap,
     ucKapitasi,
     ucNonKapitasi,

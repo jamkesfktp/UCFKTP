@@ -44,9 +44,9 @@ export default function ExcelUpload({ onDataExtracted }: ExcelUploadProps) {
           labSendiri: wsIdentitas["E17"]?.v || "",
           jmlTt: wsIdentitas["E18"]?.v || "",
           
-          pesertaJkn: wsIdentitas["E20"]?.v || "",
-          pendKapJkn: wsIdentitas["E21"]?.v || "",
-          pendNonkapJkn: wsIdentitas["E22"]?.v || "",
+          pesertaJkn: wsIdentitas["E21"]?.v || "",
+          pendKapJkn: wsIdentitas["E22"]?.v || "",
+          pendNonkapJkn: wsIdentitas["E23"]?.v || "",
           
           jkn_ri: wsIdentitas["E28"]?.v || "", nonjkn_ri: wsIdentitas["G28"]?.v || "",
           jkn_umum: wsIdentitas["E29"]?.v || "", nonjkn_umum: wsIdentitas["G29"]?.v || "",
