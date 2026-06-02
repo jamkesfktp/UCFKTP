@@ -290,7 +290,7 @@ export default function App() {
               <table className="data-table">
                 <thead>
                   <tr>
-                    <th className="sticky-col" style={{ minWidth: '300px' }}>ID & Info SDM</th>
+                    <th className="sticky-col sdm-info-col">ID & Info SDM</th>
                     <th style={{ backgroundColor: '#eff6ff', color: '#1e40af', borderLeft: '2px solid #bfdbfe', borderRight: '2px solid #bfdbfe' }}>Total Jam</th>
                     <th>Poli Umum</th>
                     <th>Poli Lansia</th>
@@ -322,7 +322,7 @@ export default function App() {
 
                     return (
                       <tr key={index} style={{ backgroundColor: pegawai.totalJam && !isValid ? '#fee2e2' : 'transparent' }}>
-                        <td className="sticky-col" style={{ verticalAlign: 'top', minWidth: '300px', backgroundColor: pegawai.totalJam && !isValid ? '#fee2e2' : 'var(--bg-panel)' }}>
+                        <td className="sticky-col sdm-info-col" style={{ verticalAlign: 'top', backgroundColor: pegawai.totalJam && !isValid ? '#fee2e2' : 'var(--bg-panel)' }}>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <input type="text" className="form-input" style={{ padding: '0.6rem', fontSize: '0.9rem', borderColor: pegawai.totalJam && !isValid ? 'red' : 'var(--border)' }} placeholder="ID" value={pegawai.id || ''} onChange={e => updatePegawai('id', e.target.value)} />
                             <select className="form-select" style={{ padding: '0.6rem', fontSize: '0.9rem', borderColor: pegawai.totalJam && !isValid ? 'red' : 'var(--border)' }} value={pegawai.jenisTenaga || ''} onChange={e => updatePegawai('jenisTenaga', e.target.value)}>

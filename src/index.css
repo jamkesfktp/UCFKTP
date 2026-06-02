@@ -251,11 +251,18 @@ h1, h2, h3, h4 {
     font-size: 1.4rem !important;
   }
   
-  /* Disable sticky columns on mobile so they don't cover the screen */
-  .data-table .sticky-col, .data-table th.sticky-col {
-    position: static !important;
-    min-width: auto !important;
-    box-shadow: none !important;
-    z-index: 1 !important;
+  /* Make sticky column narrower on mobile */
+  .sdm-info-col {
+    min-width: 140px !important;
+    max-width: 150px !important;
   }
+  
+  .sdm-info-col input {
+    padding: 0.4rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+.sdm-info-col {
+  min-width: 300px;
 }
