@@ -129,6 +129,13 @@ export default function App() {
     setStep(4);
   };
 
+  const handleCalculate = () => {
+    if (!validateStep(1)) { setStep(1); return; }
+    if (!validateStep(2)) { setStep(2); return; }
+    if (!validateStep(3)) { setStep(3); return; }
+    calculateAndShowResults();
+  };
+
   if (view === 'analytics') {
     return <AnalyticsDashboard surveys={savedSurveys} onBack={() => setView('dashboard')} />;
   }
@@ -689,9 +696,7 @@ export default function App() {
             )}
 
             {step === 3 && (
-              <button className="btn btn-primary" style={{ backgroundColor: 'var(--success)', borderColor: 'var(--success)' }} onClick={() => {
-                if (validateStep(step)) calculateAndShowResults();
-              }}>
+              <button className="btn btn-primary" style={{ backgroundColor: 'var(--success)', borderColor: 'var(--success)' }} onClick={handleCalculate}>
                 <Calculator size={18} /> Hitung Kalkulasi
               </button>
             )}
