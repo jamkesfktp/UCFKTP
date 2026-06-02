@@ -55,7 +55,7 @@ export const exportToExcel = (surveys: SavedSurvey[]) => {
 
   // Format headers to be bold
   const headerKeys = Object.keys(flatData[0] || {});
-  headerKeys.forEach((key, index) => {
+  headerKeys.forEach((_key, index) => {
     const cellAddress = XLSX.utils.encode_cell({ r: 0, c: index });
     if (worksheet[cellAddress]) {
       worksheet[cellAddress].s = { font: { bold: true } };

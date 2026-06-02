@@ -202,7 +202,7 @@ export default function AnalyticsDashboard({ surveys, onBack }: Props) {
                       <CartesianGrid strokeDasharray="3 3" vertical={false} />
                       <XAxis dataKey="name" />
                       <YAxis tickFormatter={(value) => `Rp ${(value/1000000).toFixed(0)}M`} />
-                      <RechartsTooltip formatter={(value: number) => `Rp ${value.toLocaleString('id-ID')}`} />
+                      <RechartsTooltip formatter={(value: any) => `Rp ${Number(value).toLocaleString('id-ID')}`} />
                       <Legend />
                       <Bar dataKey="Biaya JKN" fill="#3b82f6" radius={[4, 4, 0, 0]} />
                       <Bar dataKey="Biaya Non-JKN" fill="#f59e0b" radius={[4, 4, 0, 0]} />
@@ -225,11 +225,11 @@ export default function AnalyticsDashboard({ surveys, onBack }: Props) {
                         paddingAngle={5}
                         dataKey="value"
                       >
-                        {metrics?.pieData.map((entry, index) => (
+                        {metrics?.pieData.map((_entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <RechartsTooltip formatter={(value: number) => `Rp ${value.toLocaleString('id-ID')}`} />
+                      <RechartsTooltip formatter={(value: any) => `Rp ${Number(value).toLocaleString('id-ID')}`} />
                       <Legend />
                     </PieChart>
                   </ResponsiveContainer>
