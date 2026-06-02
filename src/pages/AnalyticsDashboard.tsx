@@ -116,9 +116,12 @@ export default function AnalyticsDashboard({ surveys, onBack }: Props) {
     <div className="layout">
       <header className="header" style={{ padding: '1.5rem 0', borderBottom: '1px solid var(--border)' }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.5px', color: 'var(--primary)' }}>Dasbor Analitik Makro</h1>
-            <p style={{ color: 'var(--text-muted)' }}>Agregat Data {filteredSurveys.length} Fasilitas Kesehatan</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.svg" alt="Logo Kemenkes" style={{ height: '54px' }} />
+            <div>
+              <h1 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.5px', color: 'var(--primary)', marginBottom: '0.2rem' }}>Dasbor Analitik Makro</h1>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 500 }}>Agregat Data {filteredSurveys.length} Fasilitas Kesehatan</p>
+            </div>
           </div>
           <button className="btn btn-secondary" onClick={onBack} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ArrowLeft size={16} /> Kembali ke Manajemen Data

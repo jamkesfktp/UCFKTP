@@ -1,12 +1,13 @@
 :root {
-  --primary: #1e3a8a; /* Navy Blue */
-  --primary-hover: #1e40af;
-  --secondary: #0ea5e9;
-  --bg-main: #f8fafc;
+  --primary: #00A39D; /* Kemenkes Tosca */
+  --primary-hover: #008c87;
+  --secondary: #1d2f5e; /* Kemenkes Deep Blue */
+  --accent: #F4A81D; /* Kemenkes Gold/Orange */
+  --bg-main: #f4f9f9;
   --bg-panel: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
   --success: #10b981;
   --error: #ef4444;
   --warning: #f59e0b;
@@ -40,10 +41,15 @@ h1, h2, h3, h4 {
 /* Elegant Panel */
 .panel {
   background: var(--bg-panel);
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 163, 157, 0.1), 0 8px 10px -6px rgba(0, 163, 157, 0.1);
+  padding: 2.5rem;
+  border: 1px solid rgba(0, 163, 157, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.panel:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 163, 157, 0.15), 0 8px 10px -6px rgba(0, 163, 157, 0.1);
 }
 
 /* Forms */
@@ -53,28 +59,29 @@ h1, h2, h3, h4 {
 
 .form-label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 0.6rem;
 }
 
 .form-input, .form-select, .form-textarea {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   font-size: 0.95rem;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  background-color: #fff;
+  border-radius: 8px;
+  background-color: #fdfdfd;
   color: var(--text-main);
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
 }
 
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  border-color: var(--primary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0, 163, 157, 0.15);
 }
 
 /* Buttons */
@@ -83,33 +90,36 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
   font-size: 0.95rem;
-  font-weight: 500;
-  border-radius: 6px;
+  font-weight: 600;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  letter-spacing: 0.025em;
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
   color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 163, 157, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px -1px rgba(0, 163, 157, 0.4);
 }
 
 .btn-secondary {
-  background-color: #f1f5f9;
-  color: var(--text-main);
+  background-color: #f3f4f6;
+  color: var(--secondary);
   border: 1px solid var(--border);
 }
 
 .btn-secondary:hover {
-  background-color: #e2e8f0;
+  background-color: #e5e7eb;
+  color: var(--primary);
 }
 
 /* Advanced Data Table (No Overlap) */

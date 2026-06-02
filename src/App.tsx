@@ -91,9 +91,12 @@ export default function App() {
       <div className="layout">
         <header className="header" style={{ padding: '2rem 0', borderBottom: '1px solid var(--border)' }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <h1 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.5px' }}>Dasbor Costing FKTP</h1>
-              <p style={{ color: 'var(--text-muted)' }}>Manajemen Data Faskes Tingkat Pertama (Penyimpanan Offline)</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.svg" alt="Logo Kemenkes" style={{ height: '54px' }} />
+              <div>
+                <h1 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.5px', color: 'var(--primary)', marginBottom: '0.2rem' }}>Dasbor Costing FKTP</h1>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 500 }}>Kementerian Kesehatan Republik Indonesia</p>
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#ecfdf5', color: '#047857', borderColor: '#a7f3d0' }} onClick={() => exportToExcel(savedSurveys)}>
@@ -138,9 +141,12 @@ export default function App() {
   return (
     <div className="container animate-fade-in" style={{ maxWidth: '1600px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-        <div>
-          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>FKTP Costing Tool</h1>
-          <p className="text-muted">Aplikasi rekapitulasi biaya fasilitas kesehatan tingkat pertama.</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.svg" alt="Logo Kemenkes" style={{ height: '54px' }} />
+          <div>
+            <h1 style={{ fontSize: '2rem', marginBottom: '0.2rem', color: 'var(--primary)', letterSpacing: '-0.5px' }}>{editingId ? 'Edit Data Costing FKTP' : 'Input Baru Costing FKTP'}</h1>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', fontWeight: 500 }}>Kementerian Kesehatan Republik Indonesia</p>
+          </div>
         </div>
         <button className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} onClick={() => setView('dashboard')}>
           <ArrowLeft size={16} /> Kembali ke Dasbor
