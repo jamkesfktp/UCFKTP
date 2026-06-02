@@ -257,7 +257,7 @@ export default function App() {
             <div className="grid-3">
               <div className="form-group">
                 <label className="form-label">Provinsi</label>
-                <select className="form-select" style={isError('provinsi') ? errorStyle : {}} value={formData.identitas.provinsi || ""} onChange={e => setIdentitas('provinsi', e.target.value)}>
+                <select className="form-select" style={isError('provinsi') ? errorStyle : {}} value={formData.identitas.provinsi ?? ""} onChange={e => setIdentitas('provinsi', e.target.value)}>
                   <option value="">-- Pilih Provinsi --</option>
                   <option value="Banten">Banten</option>
                   <option value="Jawa Timur">Jawa Timur</option>
@@ -266,19 +266,19 @@ export default function App() {
               </div>
               <div className="form-group">
                 <label className="form-label">Kab/Kota</label>
-                <select className="form-select" style={isError('kabkota') ? errorStyle : {}} value={formData.identitas.kabkota || ""} onChange={e => setIdentitas('kabkota', e.target.value)}>
+                <select className="form-select" style={isError('kabkota') ? errorStyle : {}} value={formData.identitas.kabkota ?? ""} onChange={e => setIdentitas('kabkota', e.target.value)}>
                   <option value="">-- Pilih Kab/Kota --</option>
                   <option value="Kota Tangerang">Kota Tangerang</option>
                   <option value="Kota Surabaya">Kota Surabaya</option>
                   <option value="Kota Yogyakarta">Kota Yogyakarta</option>
                 </select>
               </div>
-              <div className="form-group"><label className="form-label">Kode Faskes</label><input type="text" className="form-input" style={isError('kdFaskes') ? errorStyle : {}} value={formData.identitas.kdFaskes || ""} onChange={e => setIdentitas('kdFaskes', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Nama FKTP</label><input type="text" className="form-input" style={isError('namaFktp') ? errorStyle : {}} value={formData.identitas.namaFktp || ""} onChange={e => setIdentitas('namaFktp', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Kode Faskes</label><input type="text" className="form-input" style={isError('kdFaskes') ? errorStyle : {}} value={formData.identitas.kdFaskes ?? ""} onChange={e => setIdentitas('kdFaskes', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Nama FKTP</label><input type="text" className="form-input" style={isError('namaFktp') ? errorStyle : {}} value={formData.identitas.namaFktp ?? ""} onChange={e => setIdentitas('namaFktp', e.target.value)} /></div>
               
               <div className="form-group">
                 <label className="form-label">Jenis Faskes</label>
-                <select className="form-select" style={isError('jenisFaskes') ? errorStyle : {}} value={formData.identitas.jenisFaskes || ""} onChange={e => setIdentitas('jenisFaskes', e.target.value)}>
+                <select className="form-select" style={isError('jenisFaskes') ? errorStyle : {}} value={formData.identitas.jenisFaskes ?? ""} onChange={e => setIdentitas('jenisFaskes', e.target.value)}>
                   <option value="">-- Pilih Jenis Faskes --</option>
                   <option value="Puskesmas Non Rawat Inap">Puskesmas Non Rawat Inap</option>
                   <option value="Puskesmas Rawat Inap">Puskesmas Rawat Inap</option>
@@ -291,7 +291,7 @@ export default function App() {
               
               <div className="form-group">
                 <label className="form-label">Karakter Wilayah</label>
-                <select className="form-select" style={isError('karakterWil') ? errorStyle : {}} value={formData.identitas.karakterWil || ""} onChange={e => setIdentitas('karakterWil', e.target.value)}>
+                <select className="form-select" style={isError('karakterWil') ? errorStyle : {}} value={formData.identitas.karakterWil ?? ""} onChange={e => setIdentitas('karakterWil', e.target.value)}>
                   <option value="">-- Pilih Karakteristik --</option>
                   <option value="Perkotaan">Perkotaan</option>
                   <option value="Perdesaan">Perdesaan</option>
@@ -303,7 +303,7 @@ export default function App() {
 
               <div className="form-group">
                 <label className="form-label">Status Akreditasi</label>
-                <select className="form-select" style={isError('statusAkre') ? errorStyle : {}} value={formData.identitas.statusAkre || ""} onChange={e => setIdentitas('statusAkre', e.target.value)}>
+                <select className="form-select" style={isError('statusAkre') ? errorStyle : {}} value={formData.identitas.statusAkre ?? ""} onChange={e => setIdentitas('statusAkre', e.target.value)}>
                   <option value="">-- Pilih Status --</option>
                   <option value="Dasar">Dasar</option>
                   <option value="Madya">Madya</option>
@@ -314,38 +314,38 @@ export default function App() {
                 </select>
               </div>
               
-              <div className="form-group"><label className="form-label">Tahun Akreditasi</label><input min="0" type="number" className="form-input" style={isError('thnAkre') ? errorStyle : {}} value={formData.identitas.thnAkre || ""} onChange={e => setIdentitas('thnAkre', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Nama CP</label><input type="text" className="form-input" style={isError('cpNama') ? errorStyle : {}} value={formData.identitas.cpNama || ""} onChange={e => setIdentitas('cpNama', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Telp CP</label><input type="text" className="form-input" style={isError('cpTelp') ? errorStyle : {}} value={formData.identitas.cpTelp || ""} onChange={e => setIdentitas('cpTelp', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Jabatan CP</label><input type="text" className="form-input" style={isError('cpJabatan') ? errorStyle : {}} value={formData.identitas.cpJabatan || ""} onChange={e => setIdentitas('cpJabatan', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Tahun Akreditasi</label><input min="0" type="number" className="form-input" style={isError('thnAkre') ? errorStyle : {}} value={formData.identitas.thnAkre ?? ""} onChange={e => setIdentitas('thnAkre', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Nama CP</label><input type="text" className="form-input" style={isError('cpNama') ? errorStyle : {}} value={formData.identitas.cpNama ?? ""} onChange={e => setIdentitas('cpNama', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Telp CP</label><input type="text" className="form-input" style={isError('cpTelp') ? errorStyle : {}} value={formData.identitas.cpTelp ?? ""} onChange={e => setIdentitas('cpTelp', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Jabatan CP</label><input type="text" className="form-input" style={isError('cpJabatan') ? errorStyle : {}} value={formData.identitas.cpJabatan ?? ""} onChange={e => setIdentitas('cpJabatan', e.target.value)} /></div>
             </div>
 
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>B. Utilisasi & Kepesertaan JKN</h3>
             <div className="grid-3">
               <div className="form-group">
                 <label className="form-label">Jam Layanan</label>
-                <input min="0" type="number" className="form-input" style={{ ...(isJamInvalid || isError('jamLayanan') ? errorStyle : {}) }} value={formData.identitas.jamLayanan || ""} onChange={e => setIdentitas('jamLayanan', e.target.value)} />
+                <input min="0" type="number" className="form-input" style={{ ...(isJamInvalid || isError('jamLayanan') ? errorStyle : {}) }} value={formData.identitas.jamLayanan ?? ""} onChange={e => setIdentitas('jamLayanan', e.target.value)} />
                 {isJamInvalid && <div style={{ color: 'red', fontSize: '0.75rem', marginTop: '4px' }}>Maksimal 24 jam</div>}
               </div>
               <div className="form-group">
                 <label className="form-label">Menit Layanan</label>
-                <input min="0" type="number" className="form-input" style={{ ...(isMenitInvalid || isError('menitLayanan') ? errorStyle : {}) }} value={formData.identitas.menitLayanan || ""} onChange={e => setIdentitas('menitLayanan', e.target.value)} />
+                <input min="0" type="number" className="form-input" style={{ ...(isMenitInvalid || isError('menitLayanan') ? errorStyle : {}) }} value={formData.identitas.menitLayanan ?? ""} onChange={e => setIdentitas('menitLayanan', e.target.value)} />
                 {isMenitInvalid && <div style={{ color: 'red', fontSize: '0.75rem', marginTop: '4px' }}>Maksimal 59 menit</div>}
               </div>
               <div className="form-group">
                 <label className="form-label">Hari Buka/Minggu</label>
-                <input min="0" type="number" className="form-input" style={{ ...(isHariInvalid || isError('hariBuka') ? errorStyle : {}) }} value={formData.identitas.hariBuka || ""} onChange={e => setIdentitas('hariBuka', e.target.value)} />
+                <input min="0" type="number" className="form-input" style={{ ...(isHariInvalid || isError('hariBuka') ? errorStyle : {}) }} value={formData.identitas.hariBuka ?? ""} onChange={e => setIdentitas('hariBuka', e.target.value)} />
                 {isHariInvalid && <div style={{ color: 'red', fontSize: '0.75rem', marginTop: '4px' }}>Maksimal 7 hari</div>}
               </div>
-              <div className="form-group"><label className="form-label">Info Lab</label><input type="text" className="form-input" value={formData.identitas.labSendiri || ""} onChange={e => setIdentitas('labSendiri', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Info Lab</label><input type="text" className="form-input" value={formData.identitas.labSendiri ?? ""} onChange={e => setIdentitas('labSendiri', e.target.value)} /></div>
               <div className="form-group">
                 <label className="form-label">Jumlah Tempat Tidur</label>
-                <input min="0" type="number" className="form-input" style={{ ...(isTtInvalid || isError('jmlTt') ? errorStyle : {}) }} value={formData.identitas.jmlTt || ""} onChange={e => setIdentitas('jmlTt', e.target.value)} />
+                <input min="0" type="number" className="form-input" style={{ ...(isTtInvalid || isError('jmlTt') ? errorStyle : {}) }} value={formData.identitas.jmlTt ?? ""} onChange={e => setIdentitas('jmlTt', e.target.value)} />
                 {isTtInvalid && <div style={{ color: 'red', fontSize: '0.75rem', marginTop: '4px' }}>Non-Rawat Inap tidak boleh ada TT</div>}
               </div>
-              <div className="form-group"><label className="form-label">Total Peserta JKN</label><input min="0" type="number" className="form-input" style={isError('pesertaJkn') ? errorStyle : {}} value={formData.identitas.pesertaJkn || ""} onChange={e => setIdentitas('pesertaJkn', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Pendapatan Kapitasi JKN</label><input min="0" type="number" className="form-input" style={isError('pendKapJkn') ? errorStyle : {}} value={formData.identitas.pendKapJkn || ""} onChange={e => setIdentitas('pendKapJkn', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Pendapatan Non-Kapitasi JKN</label><input min="0" type="number" className="form-input" style={isError('pendNonkapJkn') ? errorStyle : {}} value={formData.identitas.pendNonkapJkn || ""} onChange={e => setIdentitas('pendNonkapJkn', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Total Peserta JKN</label><input min="0" type="number" className="form-input" style={isError('pesertaJkn') ? errorStyle : {}} value={formData.identitas.pesertaJkn ?? ""} onChange={e => setIdentitas('pesertaJkn', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Pendapatan Kapitasi JKN</label><input min="0" type="number" className="form-input" style={isError('pendKapJkn') ? errorStyle : {}} value={formData.identitas.pendKapJkn ?? ""} onChange={e => setIdentitas('pendKapJkn', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Pendapatan Non-Kapitasi JKN</label><input min="0" type="number" className="form-input" style={isError('pendNonkapJkn') ? errorStyle : {}} value={formData.identitas.pendNonkapJkn ?? ""} onChange={e => setIdentitas('pendNonkapJkn', e.target.value)} /></div>
             </div>
 
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>C. Rincian Kunjungan Pasien (Tahunan)</h3>
@@ -365,8 +365,8 @@ export default function App() {
                     return (
                       <tr key={key}>
                         <td className="sticky-col" style={{ fontWeight: 500 }}>{poli}</td>
-                        <td><input min="0" type="number" className="form-input" style={{ padding: '0.5rem', ...(isError(`jkn_${key}`) ? errorStyle : {}) }} value={formData.identitas[`jkn_${key}`] || ""} onChange={e => setIdentitas(`jkn_${key}`, e.target.value)} /></td>
-                        <td><input min="0" type="number" className="form-input" style={{ padding: '0.5rem', ...(isError(`nonjkn_${key}`) ? errorStyle : {}) }} value={formData.identitas[`nonjkn_${key}`] || ""} onChange={e => setIdentitas(`nonjkn_${key}`, e.target.value)} /></td>
+                        <td><input min="0" type="number" className="form-input" style={{ padding: '0.5rem', ...(isError(`jkn_${key}`) ? errorStyle : {}) }} value={formData.identitas[`jkn_${key}`] ?? ""} onChange={e => setIdentitas(`jkn_${key}`, e.target.value)} /></td>
+                        <td><input min="0" type="number" className="form-input" style={{ padding: '0.5rem', ...(isError(`nonjkn_${key}`) ? errorStyle : {}) }} value={formData.identitas[`nonjkn_${key}`] ?? ""} onChange={e => setIdentitas(`nonjkn_${key}`, e.target.value)} /></td>
                       </tr>
                     )
                   })}
@@ -376,19 +376,19 @@ export default function App() {
 
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem', marginTop: '2rem' }}>D. Data Kepegawaian (Total Gaji Tahunan)</h3>
             <div className="grid-3">
-              <div className="form-group"><label className="form-label">Dokter Umum</label><input min="0" type="number" className="form-input" style={isError('gaji_dokter') ? errorStyle : {}} value={formData.identitas.gaji_dokter || ""} onChange={e => setIdentitas('gaji_dokter', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Dokter Gigi</label><input min="0" type="number" className="form-input" style={isError('gaji_dokter_gigi') ? errorStyle : {}} value={formData.identitas.gaji_dokter_gigi || ""} onChange={e => setIdentitas('gaji_dokter_gigi', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Bidan</label><input min="0" type="number" className="form-input" style={isError('gaji_bidan') ? errorStyle : {}} value={formData.identitas.gaji_bidan || ""} onChange={e => setIdentitas('gaji_bidan', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Perawat</label><input min="0" type="number" className="form-input" style={isError('gaji_perawat') ? errorStyle : {}} value={formData.identitas.gaji_perawat || ""} onChange={e => setIdentitas('gaji_perawat', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Perawat Gigi</label><input min="0" type="number" className="form-input" style={isError('gaji_perawat_gigi') ? errorStyle : {}} value={formData.identitas.gaji_perawat_gigi || ""} onChange={e => setIdentitas('gaji_perawat_gigi', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Psikolog Klinis</label><input min="0" type="number" className="form-input" style={isError('gaji_psikolog') ? errorStyle : {}} value={formData.identitas.gaji_psikolog || ""} onChange={e => setIdentitas('gaji_psikolog', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">ATLM</label><input min="0" type="number" className="form-input" style={isError('gaji_atlm') ? errorStyle : {}} value={formData.identitas.gaji_atlm || ""} onChange={e => setIdentitas('gaji_atlm', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Tenaga Kefarmasian</label><input min="0" type="number" className="form-input" style={isError('gaji_farmasi') ? errorStyle : {}} value={formData.identitas.gaji_farmasi || ""} onChange={e => setIdentitas('gaji_farmasi', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Nutrisionis</label><input min="0" type="number" className="form-input" style={isError('gaji_nutrisionis') ? errorStyle : {}} value={formData.identitas.gaji_nutrisionis || ""} onChange={e => setIdentitas('gaji_nutrisionis', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Keterapian Fisik</label><input min="0" type="number" className="form-input" style={isError('gaji_keterapian') ? errorStyle : {}} value={formData.identitas.gaji_keterapian || ""} onChange={e => setIdentitas('gaji_keterapian', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">SDM Kes Lainnya</label><input min="0" type="number" className="form-input" style={isError('gaji_sdm_lain') ? errorStyle : {}} value={formData.identitas.gaji_sdm_lain || ""} onChange={e => setIdentitas('gaji_sdm_lain', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Non SDM Kesehatan</label><input min="0" type="number" className="form-input" style={isError('gaji_non_sdm') ? errorStyle : {}} value={formData.identitas.gaji_non_sdm || ""} onChange={e => setIdentitas('gaji_non_sdm', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Spesialis KKLP</label><input min="0" type="number" className="form-input" style={isError('gaji_sp_kklp') ? errorStyle : {}} value={formData.identitas.gaji_sp_kklp || ""} onChange={e => setIdentitas('gaji_sp_kklp', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Dokter Umum</label><input min="0" type="number" className="form-input" style={isError('gaji_dokter') ? errorStyle : {}} value={formData.identitas.gaji_dokter ?? ""} onChange={e => setIdentitas('gaji_dokter', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Dokter Gigi</label><input min="0" type="number" className="form-input" style={isError('gaji_dokter_gigi') ? errorStyle : {}} value={formData.identitas.gaji_dokter_gigi ?? ""} onChange={e => setIdentitas('gaji_dokter_gigi', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Bidan</label><input min="0" type="number" className="form-input" style={isError('gaji_bidan') ? errorStyle : {}} value={formData.identitas.gaji_bidan ?? ""} onChange={e => setIdentitas('gaji_bidan', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Perawat</label><input min="0" type="number" className="form-input" style={isError('gaji_perawat') ? errorStyle : {}} value={formData.identitas.gaji_perawat ?? ""} onChange={e => setIdentitas('gaji_perawat', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Perawat Gigi</label><input min="0" type="number" className="form-input" style={isError('gaji_perawat_gigi') ? errorStyle : {}} value={formData.identitas.gaji_perawat_gigi ?? ""} onChange={e => setIdentitas('gaji_perawat_gigi', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Psikolog Klinis</label><input min="0" type="number" className="form-input" style={isError('gaji_psikolog') ? errorStyle : {}} value={formData.identitas.gaji_psikolog ?? ""} onChange={e => setIdentitas('gaji_psikolog', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">ATLM</label><input min="0" type="number" className="form-input" style={isError('gaji_atlm') ? errorStyle : {}} value={formData.identitas.gaji_atlm ?? ""} onChange={e => setIdentitas('gaji_atlm', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Tenaga Kefarmasian</label><input min="0" type="number" className="form-input" style={isError('gaji_farmasi') ? errorStyle : {}} value={formData.identitas.gaji_farmasi ?? ""} onChange={e => setIdentitas('gaji_farmasi', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Nutrisionis</label><input min="0" type="number" className="form-input" style={isError('gaji_nutrisionis') ? errorStyle : {}} value={formData.identitas.gaji_nutrisionis ?? ""} onChange={e => setIdentitas('gaji_nutrisionis', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Keterapian Fisik</label><input min="0" type="number" className="form-input" style={isError('gaji_keterapian') ? errorStyle : {}} value={formData.identitas.gaji_keterapian ?? ""} onChange={e => setIdentitas('gaji_keterapian', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">SDM Kes Lainnya</label><input min="0" type="number" className="form-input" style={isError('gaji_sdm_lain') ? errorStyle : {}} value={formData.identitas.gaji_sdm_lain ?? ""} onChange={e => setIdentitas('gaji_sdm_lain', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Non SDM Kesehatan</label><input min="0" type="number" className="form-input" style={isError('gaji_non_sdm') ? errorStyle : {}} value={formData.identitas.gaji_non_sdm ?? ""} onChange={e => setIdentitas('gaji_non_sdm', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Spesialis KKLP</label><input min="0" type="number" className="form-input" style={isError('gaji_sp_kklp') ? errorStyle : {}} value={formData.identitas.gaji_sp_kklp ?? ""} onChange={e => setIdentitas('gaji_sp_kklp', e.target.value)} /></div>
             </div>
 
                 </>
