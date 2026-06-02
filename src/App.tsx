@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calculator, Save, FileText, CheckCircle, Trash2, ArrowLeft, BarChart2, FileDown, Info, X, Edit, ArrowRight } from 'lucide-react';
+import { Calculator, Save, CheckCircle, Trash2, ArrowLeft, BarChart2, FileDown, Info, Edit, ArrowRight, Download } from 'lucide-react';
 import { calculateCosting, initialData } from './lib/calculator';
 import ExcelUpload from './components/ExcelUpload';
 import { saveSurvey, getSurveys, deleteSurvey, type SavedSurvey } from './lib/db';
