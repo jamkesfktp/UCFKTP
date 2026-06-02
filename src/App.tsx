@@ -90,7 +90,7 @@ export default function App() {
     return (
       <div className="layout">
         <header className="header" style={{ padding: '2rem 0', borderBottom: '1px solid var(--border)' }}>
-          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="container flex-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <img src="/kemenkes-logo.png" alt="Logo Kemenkes" style={{ height: '84px', objectFit: 'contain' }} />
               <div>
@@ -98,7 +98,7 @@ export default function App() {
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 500 }}>Kementerian Kesehatan Republik Indonesia</p>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div className="flex-actions">
               <button className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#ecfdf5', color: '#047857', borderColor: '#a7f3d0' }} onClick={() => exportToExcel(savedSurveys)}>
                 <FileDown size={16} /> Unduh Excel
               </button>
@@ -140,7 +140,7 @@ export default function App() {
 
   return (
     <div className="container animate-fade-in" style={{ maxWidth: '1600px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+      <div className="flex-header" style={{ marginBottom: '3rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <img src="/kemenkes-logo.png" alt="Logo Kemenkes" style={{ height: '84px', objectFit: 'contain' }} />
           <div>
@@ -185,7 +185,7 @@ export default function App() {
               return (
                 <>
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>A. Profil Faskes</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+            <div className="grid-3">
               <div className="form-group"><label className="form-label">Provinsi</label><input type="text" className="form-input" value={formData.identitas.provinsi || ""} onChange={e => setIdentitas('provinsi', e.target.value)} /></div>
               <div className="form-group"><label className="form-label">Kab/Kota</label><input type="text" className="form-input" value={formData.identitas.kabkota || ""} onChange={e => setIdentitas('kabkota', e.target.value)} /></div>
               <div className="form-group"><label className="form-label">Kode Faskes</label><input type="text" className="form-input" value={formData.identitas.kdFaskes || ""} onChange={e => setIdentitas('kdFaskes', e.target.value)} /></div>
@@ -200,7 +200,7 @@ export default function App() {
             </div>
 
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>B. Utilisasi & Kepesertaan JKN</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+            <div className="grid-3">
               <div className="form-group">
                 <label className="form-label">Jam Layanan</label>
                 <input type="number" className="form-input" style={{ borderColor: isJamInvalid ? 'red' : '' }} value={formData.identitas.jamLayanan || ""} onChange={e => setIdentitas('jamLayanan', e.target.value)} />
@@ -254,7 +254,7 @@ export default function App() {
             </div>
 
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem', marginTop: '2rem' }}>D. Data Kepegawaian (Total Gaji Tahunan)</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+            <div className="grid-3">
               <div className="form-group"><label className="form-label">Dokter Umum</label><input type="number" className="form-input" value={formData.identitas.gaji_dokter || ""} onChange={e => setIdentitas('gaji_dokter', e.target.value)} /></div>
               <div className="form-group"><label className="form-label">Dokter Gigi</label><input type="number" className="form-input" value={formData.identitas.gaji_dokter_gigi || ""} onChange={e => setIdentitas('gaji_dokter_gigi', e.target.value)} /></div>
               <div className="form-group"><label className="form-label">Bidan</label><input type="number" className="form-input" value={formData.identitas.gaji_bidan || ""} onChange={e => setIdentitas('gaji_bidan', e.target.value)} /></div>
@@ -476,7 +476,7 @@ export default function App() {
               <p className="text-muted" style={{ fontSize: '1.2rem' }}>Dihitung secara real-time berdasarkan matriks alokasi</p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
+            <div className="grid-2">
               <div style={{ padding: '2rem', backgroundColor: '#f1f5f9', border: '1px solid var(--border)', borderRadius: '12px', textAlign: 'center' }}>
                 <h3 style={{ color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: 500 }}>Total Biaya Keseluruhan JKN</h3>
                 <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--primary)' }}>
@@ -498,7 +498,7 @@ export default function App() {
             </div>
 
             {/* NON JKN SCORECARDS */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
+            <div className="grid-2">
               <div style={{ padding: '1.5rem', backgroundColor: '#fff7ed', border: '1px solid #fed7aa', borderRadius: '12px', textAlign: 'center' }}>
                 <h3 style={{ color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: 500 }}>Total Biaya Non-JKN (Estimasi)</h3>
                 <div style={{ fontSize: '2rem', fontWeight: 700, color: '#c2410c' }}>

@@ -115,7 +115,7 @@ export default function AnalyticsDashboard({ surveys, onBack }: Props) {
   return (
     <div className="layout">
       <header className="header" style={{ padding: '1.5rem 0', borderBottom: '1px solid var(--border)' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="container flex-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <img src="/kemenkes-logo.png" alt="Logo Kemenkes" style={{ height: '84px', objectFit: 'contain' }} />
             <div>
@@ -160,7 +160,7 @@ export default function AnalyticsDashboard({ surveys, onBack }: Props) {
         ) : (
           <>
             {/* Scorecards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+            <div className="grid-4">
               <div style={{ padding: '1.5rem', backgroundColor: '#f1f5f9', borderRadius: '12px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Total FKTP</div>
                 <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary)' }}>{filteredSurveys.length}</div>
@@ -196,7 +196,7 @@ export default function AnalyticsDashboard({ surveys, onBack }: Props) {
             </div>
 
             {/* Charts */}
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
+            <div className="grid-2-1">
               <div style={{ backgroundColor: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border)' }}>
                 <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-main)' }}>Perbandingan Biaya (JKN vs Non-JKN) per Faskes</h3>
                 <div style={{ height: '400px' }}>
