@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { FileDown, CheckCircle, Calculator, Download, ArrowLeft, Save, Trash2, Edit, ArrowRight, BarChart2 } from 'lucide-react';
+import { Calculator, Save, FileText, CheckCircle, Trash2, ArrowLeft, BarChart2, FileDown, Info, X, Edit, ArrowRight } from 'lucide-react';
 import { calculateCosting, initialData } from './lib/calculator';
 import ExcelUpload from './components/ExcelUpload';
 import { saveSurvey, getSurveys, deleteSurvey, type SavedSurvey } from './lib/db';
 import AnalyticsDashboard from './pages/AnalyticsDashboard';
 import { exportToExcel } from './lib/exporter';
+import ReferenceModal from './components/ReferenceModal';
 
 export default function App() {
   const [view, setView] = useState<'dashboard' | 'form' | 'analytics'>('dashboard');
@@ -14,6 +15,8 @@ export default function App() {
   const [step, setStep] = useState(0);
   const [result, setResult] = useState<any>(null);
   const [formData, setFormData] = useState<any>(initialData);
+  const [showReference, setShowReference] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (view === 'dashboard' || view === 'analytics') {
@@ -32,7 +35,6 @@ export default function App() {
   const handleEdit = (survey: SavedSurvey) => {
     setEditingId(survey.id);
     
-    // Backward compatibility migration for kualitatif
     let kualitatif = survey.formData?.kualitatif || [];
     if (!Array.isArray(kualitatif) && typeof kualitatif === 'object') {
       kualitatif = initialData.kualitatif.map(q => ({
@@ -69,7 +71,52 @@ export default function App() {
     }));
   };
 
-  const nextStep = () => setStep(s => Math.min(4, s + 1));
+  const validateStep = (currentStep: number) => {
+    setValidationErrors([]);
+    const errors: string[] = [];
+    
+    if (currentStep === 1) {
+      const requiredTexts = ['provinsi', 'kabkota', 'kdFaskes', 'namaFktp', 'jenisFaskes', 'karakterWil', 'statusAkre'];
+      requiredTexts.forEach(key => {
+        if (!formData.identitas[key]) errors.push(key);
+      });
+      const numericFields = ['jamLayanan', 'menitLayanan', 'hariBuka', 'jmlTt', 'pesertaJkn', 'pendKapJkn', 'pendNonkapJkn',
+        'jkn_ri', 'nonjkn_ri', 'jkn_umum', 'nonjkn_umum', 'jkn_lansia', 'nonjkn_lansia', 'jkn_kia', 'nonjkn_kia', 
+        'jkn_gigi', 'nonjkn_gigi', 'jkn_psiko', 'nonjkn_psiko', 'jkn_gizi', 'nonjkn_gizi', 'jkn_igd', 'nonjkn_igd', 
+        'jkn_kb', 'nonjkn_kb', 'jkn_persalin', 'nonjkn_persalin', 'jkn_lab', 'nonjkn_lab', 'jkn_anc_usg', 'nonjkn_anc_usg', 
+        'jkn_ukm', 'nonjkn_ukm', 'jkn_lain', 'nonjkn_lain',
+        'gaji_dokter', 'gaji_dokter_gigi', 'gaji_bidan', 'gaji_perawat', 'gaji_perawat_gigi', 'gaji_psikolog', 'gaji_atlm', 
+        'gaji_farmasi', 'gaji_nutrisionis', 'gaji_keterapian', 'gaji_sdm_lain', 'gaji_non_sdm', 'gaji_sp_kklp'
+      ];
+      numericFields.forEach(key => {
+        const val = formData.identitas[key];
+        if (val === undefined || val === '' || Number(val) < 0) errors.push(key);
+      });
+    } else if (currentStep === 2) {
+      formData.sdm.forEach((pegawai: any, index: number) => {
+        if (!pegawai.id || !pegawai.jenisTenaga || !pegawai.totalJam || Number(pegawai.totalJam) <= 0) {
+          errors.push(`sdm_${index}`);
+        }
+      });
+    } else if (currentStep === 3) {
+      formData.kualitatif.forEach((q: any, index: number) => {
+        if (!q.answer) errors.push(`q_${index}`);
+      });
+    }
+
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      alert("Harap lengkapi semua isian yang bergaris merah. Angka minimal 0.");
+      return false;
+    }
+    return true;
+  };
+
+  const nextStep = () => {
+    if (step > 0 && !validateStep(step)) return;
+    setStep(Math.min(4, step + 1));
+    window.scrollTo(0, 0);
+  };
   const prevStep = () => setStep(s => Math.max(0, s - 1));
 
   const setIdentitas = (field: string, val: any) => {
@@ -182,21 +229,88 @@ export default function App() {
               const isHariInvalid = Number(formData.identitas.hariBuka) > 7;
               const isTtInvalid = String(formData.identitas.jenisFaskes || '').toLowerCase().includes('non rawat') && Number(formData.identitas.jmlTt) > 0;
               
+              const isError = (key: string) => validationErrors.includes(key);
+              const errorStyle = { borderColor: 'red', backgroundColor: '#fee2e2' };
+
               return (
                 <>
-            <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>A. Profil Faskes</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>
+              <h3 style={{ margin: 0 }}>A. Profil Faskes</h3>
+              <button className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }} onClick={() => setShowReference(true)}>
+                <Info size={16} style={{ marginRight: '4px' }}/> Referensi Variabel
+              </button>
+            </div>
+            
+            {validationErrors.length > 0 && (
+              <div style={{ backgroundColor: '#fee2e2', color: '#b91c1c', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', fontWeight: 500 }}>
+                Terdapat {validationErrors.length} isian yang belum lengkap atau tidak valid. Silakan periksa kolom bergaris merah.
+              </div>
+            )}
+
             <div className="grid-3">
-              <div className="form-group"><label className="form-label">Provinsi</label><input type="text" className="form-input" value={formData.identitas.provinsi || ""} onChange={e => setIdentitas('provinsi', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Kab/Kota</label><input type="text" className="form-input" value={formData.identitas.kabkota || ""} onChange={e => setIdentitas('kabkota', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Kode Faskes</label><input type="text" className="form-input" value={formData.identitas.kdFaskes || ""} onChange={e => setIdentitas('kdFaskes', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Nama FKTP</label><input type="text" className="form-input" value={formData.identitas.namaFktp || ""} onChange={e => setIdentitas('namaFktp', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Jenis Faskes</label><input type="text" className="form-input" value={formData.identitas.jenisFaskes || ""} onChange={e => setIdentitas('jenisFaskes', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Karakter Wilayah</label><input type="text" className="form-input" value={formData.identitas.karakterWil || ""} onChange={e => setIdentitas('karakterWil', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Status Akreditasi</label><input type="text" className="form-input" value={formData.identitas.statusAkre || ""} onChange={e => setIdentitas('statusAkre', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Tahun Akreditasi</label><input type="number" className="form-input" value={formData.identitas.thnAkre || ""} onChange={e => setIdentitas('thnAkre', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Nama CP</label><input type="text" className="form-input" value={formData.identitas.cpNama || ""} onChange={e => setIdentitas('cpNama', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Telp CP</label><input type="text" className="form-input" value={formData.identitas.cpTelp || ""} onChange={e => setIdentitas('cpTelp', e.target.value)} /></div>
-              <div className="form-group"><label className="form-label">Jabatan CP</label><input type="text" className="form-input" value={formData.identitas.cpJabatan || ""} onChange={e => setIdentitas('cpJabatan', e.target.value)} /></div>
+              <div className="form-group">
+                <label className="form-label">Provinsi</label>
+                <select className="form-select" style={isError('provinsi') ? errorStyle : {}} value={formData.identitas.provinsi || ""} onChange={e => setIdentitas('provinsi', e.target.value)}>
+                  <option value="">-- Pilih Provinsi --</option>
+                  <option value="Banten">Banten</option>
+                  <option value="Jawa Timur">Jawa Timur</option>
+                  <option value="DI Yogyakarta">DI Yogyakarta</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Kab/Kota</label>
+                <select className="form-select" style={isError('kabkota') ? errorStyle : {}} value={formData.identitas.kabkota || ""} onChange={e => setIdentitas('kabkota', e.target.value)}>
+                  <option value="">-- Pilih Kab/Kota --</option>
+                  <option value="Kota Tangerang">Kota Tangerang</option>
+                  <option value="Kota Surabaya">Kota Surabaya</option>
+                  <option value="Kota Yogyakarta">Kota Yogyakarta</option>
+                </select>
+              </div>
+              <div className="form-group"><label className="form-label">Kode Faskes</label><input type="text" className="form-input" style={isError('kdFaskes') ? errorStyle : {}} value={formData.identitas.kdFaskes || ""} onChange={e => setIdentitas('kdFaskes', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Nama FKTP</label><input type="text" className="form-input" style={isError('namaFktp') ? errorStyle : {}} value={formData.identitas.namaFktp || ""} onChange={e => setIdentitas('namaFktp', e.target.value)} /></div>
+              
+              <div className="form-group">
+                <label className="form-label">Jenis Faskes</label>
+                <select className="form-select" style={isError('jenisFaskes') ? errorStyle : {}} value={formData.identitas.jenisFaskes || ""} onChange={e => setIdentitas('jenisFaskes', e.target.value)}>
+                  <option value="">-- Pilih Jenis Faskes --</option>
+                  <option value="Puskesmas Non Rawat Inap">Puskesmas Non Rawat Inap</option>
+                  <option value="Puskesmas Rawat Inap">Puskesmas Rawat Inap</option>
+                  <option value="Klinik Pratama Non Rawat Inap">Klinik Pratama Non Rawat Inap</option>
+                  <option value="Klinik Pratama Rawat Inap">Klinik Pratama Rawat Inap</option>
+                  <option value="Dokter Praktek Perorangan Non Rawat Inap">Dokter Praktek Perorangan Non Rawat Inap</option>
+                  <option value="Dokter Praktek Perorangan Rawat Inap">Dokter Praktek Perorangan Rawat Inap</option>
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label">Karakter Wilayah</label>
+                <select className="form-select" style={isError('karakterWil') ? errorStyle : {}} value={formData.identitas.karakterWil || ""} onChange={e => setIdentitas('karakterWil', e.target.value)}>
+                  <option value="">-- Pilih Karakteristik --</option>
+                  <option value="Perkotaan">Perkotaan</option>
+                  <option value="Perdesaan">Perdesaan</option>
+                  <option value="Terpencil">Terpencil</option>
+                  <option value="Sangat Terpencil">Sangat Terpencil</option>
+                  <option value="Tidak berlaku">Tidak berlaku</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Status Akreditasi</label>
+                <select className="form-select" style={isError('statusAkre') ? errorStyle : {}} value={formData.identitas.statusAkre || ""} onChange={e => setIdentitas('statusAkre', e.target.value)}>
+                  <option value="">-- Pilih Status --</option>
+                  <option value="Dasar">Dasar</option>
+                  <option value="Madya">Madya</option>
+                  <option value="Utama">Utama</option>
+                  <option value="Paripurna">Paripurna</option>
+                  <option value="Belum Terakreditasi">Belum Terakreditasi</option>
+                  <option value="Tidak berlaku">Tidak berlaku</option>
+                </select>
+              </div>
+              
+              <div className="form-group"><label className="form-label">Tahun Akreditasi</label><input type="number" className="form-input" style={isError('thnAkre') ? errorStyle : {}} value={formData.identitas.thnAkre || ""} onChange={e => setIdentitas('thnAkre', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Nama CP</label><input type="text" className="form-input" style={isError('cpNama') ? errorStyle : {}} value={formData.identitas.cpNama || ""} onChange={e => setIdentitas('cpNama', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Telp CP</label><input type="text" className="form-input" style={isError('cpTelp') ? errorStyle : {}} value={formData.identitas.cpTelp || ""} onChange={e => setIdentitas('cpTelp', e.target.value)} /></div>
+              <div className="form-group"><label className="form-label">Jabatan CP</label><input type="text" className="form-input" style={isError('cpJabatan') ? errorStyle : {}} value={formData.identitas.cpJabatan || ""} onChange={e => setIdentitas('cpJabatan', e.target.value)} /></div>
             </div>
 
             <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>B. Utilisasi & Kepesertaan JKN</h3>
@@ -558,7 +672,7 @@ export default function App() {
             <div className="flex-actions" style={{ marginTop: '2rem', justifyContent: 'flex-end' }}>
               <button className="btn btn-secondary" onClick={() => setStep(3)}><ArrowLeft size={18} /> Kembali Edit Data</button>
               <button className="btn btn-secondary" style={{ backgroundColor: '#10b981', color: 'white', borderColor: '#10b981' }} onClick={handleSaveDraft}><Save size={18} /> Simpan ke Dasbor (Offline)</button>
-              <button className="btn btn-primary"><Download size={18} /> Ekspor Laporan PDF</button>
+              <button className="btn btn-primary" onClick={() => window.print()}><Download size={18} /> Ekspor Laporan PDF</button>
             </div>
           </div>
         )}
@@ -575,7 +689,9 @@ export default function App() {
             )}
 
             {step === 3 && (
-              <button className="btn btn-primary" style={{ backgroundColor: 'var(--success)', borderColor: 'var(--success)' }} onClick={calculateAndShowResults}>
+              <button className="btn btn-primary" style={{ backgroundColor: 'var(--success)', borderColor: 'var(--success)' }} onClick={() => {
+                if (validateStep(step)) calculateAndShowResults();
+              }}>
                 <Calculator size={18} /> Hitung Kalkulasi
               </button>
             )}
@@ -583,6 +699,8 @@ export default function App() {
         )}
 
       </div>
+      
+      {showReference && <ReferenceModal onClose={() => setShowReference(false)} />}
     </div>
   );
 }

@@ -266,3 +266,15 @@ h1, h2, h3, h4 {
 .sdm-info-col {
   min-width: 300px;
 }
+
+/* Print Styles for PDF Export */
+@media print {
+  body { background-color: white !important; }
+  .layout { padding: 0 !important; }
+  .header, .wizard-tabs, .flex-actions, .flex-header button, .btn { display: none !important; }
+  .panel { box-shadow: none !important; border: none !important; padding: 0 !important; }
+  .container { max-width: 100% !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+  .grid-4, .grid-2, .grid-2-1, .grid-3 { display: flex !important; flex-wrap: wrap !important; }
+  .grid-4 > div, .grid-2 > div, .grid-2-1 > div, .grid-3 > div { flex: 1 1 45% !important; margin: 10px !important; }
+}

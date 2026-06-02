@@ -12,17 +12,17 @@ const RATES: any = {
   "Klinik Pratama Rawat Inap<= 5.000 peserta": { "sdm": 0.3969939, "obat": 0.1726183, "alkes": 0.1523801, "nonmedis": 0.0899077 },
   "Klinik Pratama Rawat Inap5.001 - 25.000 peserta": { "sdm": 0.4562939, "obat": 0.1271229, "alkes": 0.120745, "nonmedis": 0.1077383 },
   "Klinik Pratama Rawat Inap> 25.000 peserta": { "sdm": 0.4562939, "obat": 0.1271229, "alkes": 0.120745, "nonmedis": 0.1077383 },
-  "Dokter Praktik Perorangan Non Rawat Inap<= 5.000 peserta": { "sdm": 0.4304134, "obat": 0.1357955, "alkes": 0.1362111, "nonmedis": 0.07798 },
-  "Dokter Praktik Perorangan Non Rawat Inap5.001 - 25.000 peserta": { "sdm": 0.44034, "obat": 0.1346876, "alkes": 0.1284958, "nonmedis": 0.0768766 },
-  "Dokter Praktik Perorangan Non Rawat Inap> 25.000 peserta": { "sdm": 0.4496526, "obat": 0.1189255, "alkes": 0.1227188, "nonmedis": 0.0891031 },
-  "Dokter Praktik Perorangan Rawat Inap<= 5.000 peserta": { "sdm": 0.3969939, "obat": 0.1726183, "alkes": 0.1523801, "nonmedis": 0.0899077 },
-  "Dokter Praktik Perorangan Rawat Inap5.001 - 25.000 peserta": { "sdm": 0.4562939, "obat": 0.1271229, "alkes": 0.120745, "nonmedis": 0.1077383 },
-  "Dokter Praktik Perorangan Rawat Inap> 25.000 peserta": { "sdm": 0.4562939, "obat": 0.1271229, "alkes": 0.120745, "nonmedis": 0.1077383 }
+  "Dokter Praktek Perorangan Non Rawat Inap<= 5.000 peserta": { "sdm": 0.4304134, "obat": 0.1357955, "alkes": 0.1362111, "nonmedis": 0.07798 },
+  "Dokter Praktek Perorangan Non Rawat Inap5.001 - 25.000 peserta": { "sdm": 0.44034, "obat": 0.1346876, "alkes": 0.1284958, "nonmedis": 0.0768766 },
+  "Dokter Praktek Perorangan Non Rawat Inap> 25.000 peserta": { "sdm": 0.4496526, "obat": 0.1189255, "alkes": 0.1227188, "nonmedis": 0.0891031 },
+  "Dokter Praktek Perorangan Rawat Inap<= 5.000 peserta": { "sdm": 0.3969939, "obat": 0.1726183, "alkes": 0.1523801, "nonmedis": 0.0899077 },
+  "Dokter Praktek Perorangan Rawat Inap5.001 - 25.000 peserta": { "sdm": 0.4562939, "obat": 0.1271229, "alkes": 0.120745, "nonmedis": 0.1077383 },
+  "Dokter Praktek Perorangan Rawat Inap> 25.000 peserta": { "sdm": 0.4562939, "obat": 0.1271229, "alkes": 0.120745, "nonmedis": 0.1077383 }
 };
 
 const OVERHEAD_RATES: any = {
-  "Dokter Praktik Perorangan Non Rawat Inap": 0.09799293946919053,
-  "Dokter Praktik Perorangan Rawat Inap": 0.09799293946919053,
+  "Dokter Praktek Perorangan Non Rawat Inap": 0.09799293946919053,
+  "Dokter Praktek Perorangan Rawat Inap": 0.09799293946919053,
   "Dokter Gigi Praktik Mandiri": 0.2775479194250365,
   "Klinik Pratama Non Rawat Inap": 0.21959029824699036,
   "Klinik Pratama Rawat Inap": 0.18810105555049933,
@@ -90,8 +90,14 @@ export function calculateCosting(identitas: any, sdm: any[], _kualitatif: any) {
     (Number(identitas.nonjkn_ukm) || 0) + (Number(identitas.nonjkn_lain) || 0);
 
   const totalKunjungan = kunjunganJkn + kunjunganNonJkn;
-  const proRataAdmin = totalKunjungan > 0 ? (kunjunganJkn / totalKunjungan) : 0;
-  const proRataAdminNonJkn = totalKunjungan > 0 ? (kunjunganNonJkn / totalKunjungan) : 0;
+  let proRataAdmin = totalKunjungan > 0 ? (kunjunganJkn / totalKunjungan) : 0;
+  let proRataAdminNonJkn = totalKunjungan > 0 ? (kunjunganNonJkn / totalKunjungan) : 0;
+
+  // Kapitasi Adjustment eksklusi non-JKN (Khusus Puskesmas) dikali 62%
+  if (String(identitas.jenisFaskes).toLowerCase().includes('puskesmas')) {
+    proRataAdmin = 0.62;
+    proRataAdminNonJkn = 0.38;
+  }
 
   let biayaSdmNonJkn = 0;
 
